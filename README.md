@@ -56,7 +56,7 @@ Datum posledniho pristupu:
 UID majitele:
 GID majitele:
 ```
-Pro vypsání datumu použijte funkci localtime(3)
+Pro vypsání datumu použijte funkci localtime(3) a strftime(3)
 
 ## 3. Úkol Refactoring
 Vytvořte funkce
