@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Invalid amount of arguments\n");
     return -1;
   }
+  
   int fd = open(argv[1], O_RDONLY);
   if (fd < 0) {
     perror(argv[1]);
@@ -166,6 +167,7 @@ int print_file(const char *path)
   close(fd);
   return 0;
 }
+
 int print_stats(const char *path)
 {
   struct stat st;
