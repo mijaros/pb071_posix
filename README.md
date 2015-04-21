@@ -48,7 +48,7 @@ Pro otevření manuálové stránky využijte příkazu man, například pro man
 ```$man 3 open```
 
 ## 2. Úkol Informace o souboru
-Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, ktere zjistite pomoci funkce lstat(2)
+Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, ktere zjistite pomoci funkce fstat(2)
 po vypsani souboru, zapiste informace v nasledujicim formatu na stderr:
 ```
 Velikost souboru: 
@@ -56,7 +56,7 @@ Datum posledniho pristupu:
 UID majitele:
 GID majitele:
 ```
-Pro vypsání datumu použijte funkci localtime(3) a strftime(3)
+Pro vypsání datumu použijte funkci ctime(3)
 
 ## 3. Úkol Refactoring
 Vytvořte funkce
@@ -70,7 +70,7 @@ Na základě zvoleného přepínače použijte nad danými soubory funkce:
 * -s print_stats
 * -p print_file
 
-Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. Nezapomeňte, že funkce lstat bere file deskriptor, nicméně existuje funkce stat, která přijímá cestu k souboru.
+Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. Nezapomeňte, že funkce fstat bere file deskriptor, nicméně existuje funkce stat, která přijímá cestu k souboru.
 
 ## 4. Úkol Výpis adresářů
 Nyní máte program, který dokáže vypsat statistiky, nebo obsah daných souborů, nyní tento program upravíme, o možnost práce nad adresáři.
