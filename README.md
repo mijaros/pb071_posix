@@ -83,4 +83,12 @@ int read_directory(const char *path, int (*func)(const char *) );
 Tato funkce přečte obsah zadaného adresáře - argument path - a na jednotlivé potomky aplikuje funkci func, pokud jsou soubory.
 Pokud nejsou vypíše na standardní výstup informaci, že byl nalezen neregulární soubor (například adresář), a pokračuje dále, bez zanoření.
 
-Pro toto budete potřebovat použít funkce stat(2) readdir(3) a maker S_ISREG apod, tato makra jsou dostupná v knihovně sys/stat a jsou popsaná v manuálové stránce stat
+Pro toto budete potřebovat použít funkce stat(2) readdir(3) a makra S_ISREG apod, tato makra jsou dostupná v knihovně sys/stat a jsou popsaná v manuálové stránce stat.
+
+Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš main vypíše:
+```
+Skenovani adresare %s
+--------------------------------
+/*obsah vypisu, zavolani funkce read_directory*/
+--------------------------------
+```
