@@ -49,14 +49,14 @@ Pro otevření manuálové stránky využijte příkazu man, například pro man
 
 ## 2. Úkol Informace o souboru
 Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, ktere zjistite pomoci funkce fstat(2)
-po vypsani souboru, zapiste informace v nasledujicim formatu na stderr:
+po vypsani souboru, zapiste informace v nasledujicim formatu:
 ```
 Velikost souboru: 
 Datum posledniho pristupu:
 UID majitele:
 GID majitele:
 ```
-Pro vypsání datumu použijte funkci ctime(3)
+Pro vypsání data použijte funkci ctime(3)
 
 ## 3. Úkol Refactoring
 Vytvořte funkce
@@ -82,9 +82,9 @@ int read_directory(const char *path, int (*func)(const char *) );
 Tato funkce přečte obsah zadaného adresáře - argument path - a na jednotlivé potomky aplikuje funkci func, pokud jsou soubory.
 Pokud nejsou vypíše na standardní výstup informaci, že byl nalezen neregulární soubor (například adresář), a pokračuje dále, bez zanoření.
 
-Pro toto budete potřebovat použít funkce stat(2) readdir(3) a makra S_ISREG apod, tato makra jsou dostupná v knihovně sys/stat a jsou popsaná v manuálové stránce stat.
+Pro toto budete potřebovat použít funkce stat(2) readdir(3), opendir(3) closedir(3) a makra S_ISREG apod, tato makra jsou dostupná v knihovně sys/stat a jsou popsaná v manuálové stránce stat.
 
-Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš main vypíše:
+Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš program vypíše:
 ```
 Skenovani adresare %s
 --------------------------------
