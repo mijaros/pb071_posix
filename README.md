@@ -110,6 +110,7 @@ void PosixPrintFiles(const char* path) {
 } 
 ```
 Musíte mít na paměti, že ve struktuře dirent je uložen pouze samotný název souboru, nikoliv jeho absolutní, či relativní cesta.
+
 Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš program vypíše:
 ```
 Skenovani adresare %s
