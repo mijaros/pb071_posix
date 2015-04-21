@@ -1,9 +1,12 @@
 # Cvičení 10
 V tomto cvičení se budeme učit, jak přistupovat k souborům v POSIX.
 
+POSIX je rozhraní UN*Xových operačních systémů. Jedná se tedy o velmi nízkoúrovňové rozhraní, pomocí kterého je na např. Linuxu nebo MacOS implementována standardní knihovna (stdlib).
+
 Narozdíl od stdlib, kde hlavní identifikátor souboru je struktura FILE, používá POSIX pro přístup k souboru tzv. file deskriptory, česky řečeno popisovače souborů. 
 
 FD je celé číslo, které odkazuje do tabulky otevřených souborů (udržovaná operačním systémem) a na základě popisovače požaduje po OS akci na souboru (čtení, zápis, přejmenování, smazání atd.).
+
 
 Pro přístup k soborům exitují funkce:
 * open -> alternativa k fopen
