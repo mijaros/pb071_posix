@@ -196,8 +196,7 @@ int print_directory(const char *path, int (*func)(const char *))
         perror(path);
         return -1;
     }
-    printf("Skenovani adresare %s:\n", path);
-    printf("--------------------------------\n");
+
     while ((dir = readdir(dir_holder)) != NULL) {
         buffer[len] = '\0';
         strcat(buffer, dir->d_name);
@@ -213,7 +212,6 @@ int print_directory(const char *path, int (*func)(const char *))
         func(buffer);
     }
     closedir(dir_holder);
-    printf("--------------------------------\n");
     return 0;
 }
 
@@ -236,9 +234,15 @@ int main(int argc, char *argv[])
 
   for (int i = 2; i < argc; i++) {
       struct stat st;
-      stat(argv[i], &st);
+      if (stat(argv[i], &st)) {
+        perror(argv[i]);
+        continue;
+      }
       if (S_ISDIR(st.st_mode)) {
+          printf("Skenovani adresare %s:\n", argv[i]);
+          printf("--------------------------------\n");
           print_directory(argv[i], op);
+          printf("--------------------------------\n\n");
       } else if (S_ISREG(st.st_mode)) {
           op(argv[i]);
       } else {
