@@ -25,6 +25,7 @@ Součástí je i Makefile, který vám umožní váš úkol průběžne kompilov
 ## 1. úkol cat
 Upravte následující kód tak, aby používal POSIXové funkce pro přístup k souborům.
 
+Obsah main.c
 ```{C}
 #include <stdio.h>
 
