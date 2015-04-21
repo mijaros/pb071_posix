@@ -52,7 +52,6 @@ Vaším úkolem je rozšířit předchozí program o výpis informací o souboru
 po vypsani souboru, zapiste informace v nasledujicim formatu na stderr:
 ```
 Velikost souboru: 
-Datum vytvoreni:
 Datum posledniho pristupu:
 UID majitele:
 GID majitele:
