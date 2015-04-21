@@ -1,11 +1,10 @@
 # Cvičení 10
+V tomto cvičení se budeme učit, jak přistupovat k souborům v POSIX.
 
-Toto cvičení je zaměřené na POSIXové knihovní funkce jazyka C.
-POSIX je rozhraní jazyka C pro UN*Xové operační systémy, tedy zdrojový kód je platformě závislý.
-Pro náš předmět je podstaný rozdíl mezi přístupem k souborům ve stdlib a POSIX. 
+Narozdíl od stdlib, kde hlavní identifikátor souboru je struktura FILE, používá POSIX pro přístup k souboru tzv. file deskriptory, česky řečeno popisovače souborů. 
 
-Narozdíl od FILE*, hlavního identifikátoru souboru dle stdlib, používá POSIX tzv. file deskriptory,
-česky řečeno popisovače souborů. FD je celé číslo, které odkazuje do tabulky otevřených souborů, udržovaná operačním systémem, a na základě popisovače požaduje po OS akci na souboru (čtení, zápis, přejmenování, smazání atd.).
+FD je celé číslo, které odkazuje do tabulky otevřených souborů (udržovaná operačním systémem) a na základě popisovače požaduje po OS akci na souboru (čtení, zápis, přejmenování, smazání atd.).
+
 Pro přístup k soborům exitují funkce:
 * open -> alternativa k fopen
 * close -> alternativa k fclose
@@ -47,6 +46,8 @@ open(3), close(3), read(3), write(3).
 Pro otevření manuálové stránky využijte příkazu man, například pro manuál k open použijte
 ```$man 3 open```
 
+Všimněte si rozdílu v zadávaní módu, narozdíl od stdlib, open použivá číselné konstanty, které se kombinují pomocí logického součtu. Například fopen modifikátoru "w" je ekvivalentní součet hodnot ```O_WRONLY | O_CREAT | O_TRUNC```
+
 ## 2. Úkol Informace o souboru
 Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, ktere zjistite pomoci funkce fstat(2)
 po vypsani souboru, zapiste informace v nasledujicim formatu:
@@ -70,10 +71,10 @@ Na základě zvoleného přepínače použijte nad danými soubory funkce:
 * -s print_stats
 * -p print_file
 
-Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. Nezapomeňte, že funkce fstat bere file deskriptor, nicméně existuje funkce stat, která přijímá cestu k souboru.
+Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. Nezapomeňte, že funkce fstat bere file deskriptor, nicméně existuje funkce stat, která přijímá cestu k souboru místo file descriptoru.
 
 ## 4. Úkol Výpis adresářů
-Nyní máte program, který dokáže vypsat statistiky, nebo obsah daných souborů, nyní tento program upravíme, o možnost práce nad adresáři.
+Nyní máte program, který dokáže vypsat statistiky nebo obsah daných souborů. Vaším úkolem bude rozšířit jeho funkcionalitu o práci nad soubory
 
 Vytvořte funkci
 ```
@@ -82,7 +83,7 @@ int read_directory(const char *path, int (*func)(const char *) );
 Tato funkce přečte obsah zadaného adresáře - argument path - a na jednotlivé potomky aplikuje funkci func, pokud jsou soubory.
 Pokud nejsou vypíše na standardní výstup informaci, že byl nalezen neregulární soubor (například adresář), a pokračuje dále, bez zanoření.
 
-Pro toto budete potřebovat použít funkce stat(2) readdir(3), opendir(3) closedir(3) a makra S_ISREG apod, tato makra jsou dostupná v knihovně sys/stat a jsou popsaná v manuálové stránce stat.
+Pro toto budete potřebovat použít funkce stat(2) readdir(3), opendir(3) closedir(3) a makra S_ISREG apod, tato makra jsou popsaná v manuálové stránce stat.
 
 Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš program vypíše:
 ```
