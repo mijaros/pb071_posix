@@ -23,7 +23,7 @@ Začněme úkol trochu netradičně, jak vidíte zadání je na githubu. Protož
 
 Tento příkaz vám stáhne pracovní kopii repozitáře do složky pb071_posix, která vznikne ve složce, ve které se nacházíte.
 Následně již můžete modifikovat main.c případně číst tento soubor ve vašem oblíbeném editoru.
-Součástí je i Makefile, který vám umožní váš úkol průběžne kompilovat pouze zadáním příkazu make ve složce, kte se Makefile nachází.
+Součástí je i Makefile, který vám umožní váš úkol průběžne kompilovat pouze zadáním příkazu make ve složce, kde se Makefile nachází.
 
 ## 1. úkol cat
 Upravte následující kód tak, aby používal POSIXové funkce pro přístup k souborům.
@@ -62,8 +62,8 @@ Pro otevření manuálové stránky využijte příkazu man, například pro man
 Všimněte si rozdílu v zadávaní módu, narozdíl od stdlib, open použivá číselné konstanty, které se kombinují pomocí logického součtu. Například fopen modifikátoru "w" je ekvivalentní součet hodnot ```O_WRONLY | O_CREAT | O_TRUNC```
 
 ## 2. Úkol Informace o souboru
-Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, ktere zjistite pomoci funkce fstat(2)
-po vypsani souboru, zapiste informace v nasledujicim formatu:
+Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, které zjistíte pomocí funkce fstat(2)
+po vypsaní souboru, zapište informace v nasledujícím formátu:
 ```
 Velikost souboru: 
 Datum posledniho pristupu:
