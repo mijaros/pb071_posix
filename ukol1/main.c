@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
 
   char buffer[1024] = {'\0'};
   ssize_t size = 0;
-  while ( (size = read(fd, )) > 0) {
-    write(fd, buffer, 1024);
+  while ( (size = read(fd, buffer,  1024 )) > 0) {
+    write(STDOUT_FILENO, buffer, 1024);
   }
 
   close(fd);
