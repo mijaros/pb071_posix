@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#include <time.h>
 
 int print_file(const char *path)
 {
