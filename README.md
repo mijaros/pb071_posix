@@ -15,18 +15,19 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Invalid amount of arguments\n");
     return -1;
   }
+
   int fd = open(argv[1], O_RDONLY);
   if (fd < 0) {
     perror(argv[1]);
     return -1;
   }
-  
+
   char buffer[1024] = {'\0'};
   ssize_t size = 0;
-  while ( (size = read(fd, )) > 0) {
-    write(fd, buffer, 1024);
+  while ( (size = read(fd, buffer, 1024)) > 0) {
+    write(STDOUT_FILENO, buffer, size);
   }
-  
+
   close(fd);
   return 0;
 }
@@ -189,10 +190,12 @@ int print_stats(const char *path)
 int print_directory(const char *path, int (*func)(const char *))
 {
     struct dirent *dir = NULL;
-    DIR *dir_holder = opendir(path);
+    DIR *dir_holder = NULL;
     char buffer[1024] = {'\0'};
+    int len = strlen(path);
+
+    dir_holder = opendir(path);
     strcpy(buffer, path);
-    int len = strlen(buffer);
 
     if (dir_holder == NULL) {
         perror(path);
@@ -248,7 +251,7 @@ int main(int argc, char *argv[])
       } else if (S_ISREG(st.st_mode)) {
           op(argv[i]);
       } else {
-          printf("%s is not file or directory\n", argv[i]);
+          fprintf(stderrr, "%s is not file or directory\n", argv[i]);
       }
   }
 
