@@ -74,7 +74,7 @@ Pro vypsání data použijte funkci ctime(3)
 
 ## 3. Úkol Refactoring
 Vytvořte funkce
-```
+```{C}
 int print_file(const char *path);
 int print_stats(const char *path);
 ```
@@ -90,7 +90,7 @@ Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pok
 Nyní máte program, který dokáže vypsat statistiky nebo obsah daných souborů. Vaším úkolem bude rozšířit jeho funkcionalitu o práci nad adresáři.
 
 Vytvořte funkci
-```
+```{C}
 int read_directory(const char *path, int (*func)(const char *) );
 ```
 Tato funkce přečte obsah zadaného adresáře - argument path - a na jednotlivé potomky aplikuje funkci func, pokud jsou soubory.
