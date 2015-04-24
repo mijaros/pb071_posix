@@ -43,15 +43,24 @@ int print_stats(const char *path)
 	return 0;
 }
 
+void append_slash(char *buffer, size_t *buff_len)
+{
+	if (buffer[*buff_len - 1] != '/') {
+		strcat(buffer, "/");
+		(*buff_len)++;
+	}
+}
+
 int print_directory(const char *path, int (*func)(const char *))
 {
 	struct dirent *dir = NULL;
 	DIR *dir_holder = NULL;
 	char buffer[1024] = {'\0'};
-	int len = strlen(buffer);
+	size_t len = strlen(path);
 
 	strcpy(buffer, path);
 	dir_holder = opendir(path);
+	append_slash(buffer, &len);
 
 	if (dir_holder == NULL) {
 		perror(path);
