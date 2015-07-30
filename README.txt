@@ -1,4 +1,4 @@
-====== Cvičení 10 ======
+====== Cvičení 12: Makra, bezpečnost, POSIX ======
 
 V tomto cvičení se budeme učit, jak přistupovat k souborům v POSIX.
 
@@ -8,17 +8,17 @@ Narozdíl od stdlib, kde hlavní identifikátor souboru je struktura FILE, použ
 
 FD je celé číslo, které odkazuje do tabulky otevřených souborů (udržovaná operačním systémem) a na základě popisovače požaduje po OS akci na souboru (čtení, zápis, přejmenování, smazání atd.).
 
-Pro přístup k soborům exitují funkce: * open -> alternativa k fopen * close -> alternativa k fclose * read -> alternativa k fread * write -> alternativa k fwrite
+Pro přístup k soborům existují funkce: 
+  * open -> alternativa k fopen 
+  * close -> alternativa k fclose 
+  * read -> alternativa k fread 
+  * write -> alternativa k fwrite
 
 Přístup k souboru je tedy velmi podobný jako ve stdlib, s rozdílem, že využití POSIX nám umožňuje i další zásahy do souboru, jako změna majitele, změna uživatele, čtení adresáře atd.
 
-===== 0. úkol clone =====
-
-Začněme úkol trochu netradičně, jak vidíte zadání je na githubu. Protože pracujeme v posix bude vaše práce primárně na aise, proto zdrojový kód získáte přímým přístupem k repozitáři. Po přihlášení na aisu zadejte do konzole
-
-''%%$ git clone https://github.com/xjaros1/pb071_posix%%''
-
-Tento příkaz vám stáhne pracovní kopii repozitáře do složky pb071_posix, která vznikne ve složce, ve které se nacházíte. Následně již můžete modifikovat main.c případně číst tento soubor ve vašem oblíbeném editoru. Součástí je i Makefile, který vám umožní váš úkol průběžne kompilovat pouze zadáním příkazu make ve složce, kde se Makefile nachází.
+<note>
+//Stáhněte si připravený **projekt** (odkaz)//
+</note>
 
 ===== 1. úkol cat =====
 
@@ -26,7 +26,8 @@ Upravte následující kód tak, aby používal POSIXové funkce pro přístup k
 
 Obsah main.c
 
-<code class="{c}">#include <stdio.h>
+<file c main.c>
+#include <stdio.h>
 
 int main(int argc, char *argv[])
 {
@@ -48,14 +49,14 @@ int main(int argc, char *argv[])
   
   fclose(file);
   return 0;
-}</code>
+}</file>
 Využijte manuálové stránky pro zjištění jak se funkce chovají: open(3), close(3), read(3), write(3). Pro otevření manuálové stránky využijte příkazu man, například pro manuál k open použijte ''%%$man 3 open%%''
 
-Všimněte si rozdílu v zadávaní módu, narozdíl od stdlib, open použivá číselné konstanty, které se kombinují pomocí logického součtu. Například fopen modifikátoru "w" je ekvivalentní součet hodnot ''%%O_WRONLY | O_CREAT | O_TRUNC%%''
+<note tip>Všimněte si rozdílu v zadávaní módu, narozdíl od stdlib, open použivá číselné konstanty, které se kombinují pomocí logického součtu. Například fopen modifikátoru "w" je ekvivalentní součet hodnot ''%%O_WRONLY | O_CREAT | O_TRUNC%%''</note>
 
 ===== 2. Úkol Informace o souboru =====
 
-Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, které zjistíte pomocí funkce fstat(2) po vypsaní souboru, zapište informace v nasledujícím formátu:
+Vaším úkolem je rozšířit předchozí program o výpis informací o souboru, které zjistíte pomocí funkce **fstat(2)** po vypsaní souboru, zapište informace v nasledujícím formátu:
 
 <code>Velikost souboru: 
 Datum posledniho pristupu:
@@ -67,11 +68,15 @@ Pro vypsání data použijte funkci ctime(3)
 
 Vytvořte funkce
 
-<code class="{c}">int print_file(const char *path);
-int print_stats(const char *path);</code>
-Přesuňte do těchto funkcí funkcinalitu vašeho main. Upravte váš program aby přijímal z příkazové řádky přepínače -s a -p, které budou vždy jako první argument, a 1 - N souborů. Na základě zvoleného přepínače použijte nad danými soubory funkce: * -s print_stats * -p print_file
+<file c>int print_file(const char *path);
+int print_stats(const char *path);</file>
+Přesuňte do těchto funkcí funkcinalitu vašeho main. Upravte váš program aby přijímal z příkazové řádky přepínače -s a -p, které budou vždy jako první argument, a 1 - N souborů. Na základě zvoleného přepínače použijte nad danými soubory funkce: 
+  * -s print_stats 
+  * -p print_file
 
-Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. Nezapomeňte, že funkce fstat bere file deskriptor, nicméně existuje funkce stat, která přijímá cestu k souboru místo file descriptoru.
+Pokud funkce selže, pomocí perror vypište na stderr jaká chyba nastala a pokračujte dál. 
+<note important>Nezapomeňte, že funkce fstat bere file deskriptor, nicméně existuje funkce **stat(3)**, která přijímá cestu k souboru místo file descriptoru, tedy při použítí této funkce není potřebné soubor otevírat.</note>
+
 
 ===== 4. Úkol Výpis adresářů =====
 
@@ -79,14 +84,14 @@ Nyní máte program, který dokáže vypsat statistiky nebo obsah daných soubor
 
 Vytvořte funkci
 
-<code class="{c}">int read_directory(const char *path, int (*func)(const char *) );</code>
+<file c>int read_directory(const char *path, int (*func)(const char *) );</file>
 Tato funkce přečte obsah zadaného adresáře - argument path - a na jednotlivé potomky aplikuje funkci func, pokud jsou soubory. Pokud nejsou vypíše na standardní výstup informaci, že byl nalezen neregulární soubor (například adresář), a pokračuje dále, bez zanoření.
 
 Pro toto budete potřebovat použít funkce stat(2) readdir(3), opendir(3) closedir(3) a makra S_ISREG apod, tato makra jsou popsaná v manuálové stránce stat.
 
 Jednoduché procházení složky může vypadat například takto. Kód je převzatý z cecko.eu
 
-<code class="{c}">#include <dirent.h>
+<file c>#include <dirent.h>
 void PosixPrintFiles(const char* path) {
   DIR *dir = NULL;     
   if ((dir = opendir(path))) { // connect to directory
@@ -96,7 +101,7 @@ void PosixPrintFiles(const char* path) {
     }
     closedir(dir); // finish work with directory
   }
-} </code>
+} </file>
 Musíte mít na paměti, že ve struktuře dirent je uložen pouze samotný název souboru, nikoliv jeho absolutní, či relativní cesta.
 
 Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazové řádky, pokud byl na příkazové řádce předán adresář, váš program vypíše:
@@ -105,3 +110,11 @@ Na závěr rozšiřte svůj main o detekci adresáře nad argumenty z příkazov
 --------------------------------
 /*obsah vypisu, zavolani funkce read_directory*/
 --------------------------------</code>
+
+===== Vzorové řešení =====
+
+Vzorové **řešení** (odkaz)
+
+Úlohu připravil Miroslav Jaroš -- xjaros1@fi.muni.cz
+
+
