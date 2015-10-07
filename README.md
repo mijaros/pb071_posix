@@ -1,7 +1,6 @@
 # Cvičení 10
 ## 1. úkol cat
 
-Obsah main.c
 ```{C}
 #include <stdio.h>
 #include <sys/types.h>
@@ -32,8 +31,6 @@ int main(int argc, char *argv[])
   return 0;
 }
 ```
-
-
 ## 2. Úkol Informace o souboru
 
 ```{C}
@@ -108,7 +105,6 @@ int print_stats(const char *path)
 		perror(path);
 		return -1;
 	}
-
 	printf("Statistiky souboru %s:\n", path);
 
 	printf("velikost souboru: %lld\n", (long long) st.st_size);
