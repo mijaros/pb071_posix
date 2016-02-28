@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
 }
 ```
 Využijte manuálové stránky pro zjištění jak se funkce chovají:
-open(3), close(3), read(3), write(3). 
+open(2), close(2), read(2), write(2). 
 Pro otevření manuálové stránky využijte příkazu man, například pro manuál k open použijte
-```$man 3 open```
+```$ man 2 open```
 
 Všimněte si rozdílu v zadávaní módu, narozdíl od stdlib, open použivá číselné konstanty, které se kombinují pomocí logického součtu. Například fopen modifikátoru "w" je ekvivalentní součet hodnot ```O_WRONLY | O_CREAT | O_TRUNC```
 
