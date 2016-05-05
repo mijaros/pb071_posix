@@ -19,7 +19,7 @@ Přístup k souboru je tedy velmi podobný jako ve stdlib, s rozdílem, že vyu�
 ## 0. úkol clone
 Začněme úkol trochu netradičně, jak vidíte zadání je na githubu. Protože pracujeme v posix bude vaše práce primárně na aise, proto zdrojový kód získáte přímým přístupem k repozitáři. Po přihlášení na aisu zadejte do konzole
 
-```$ git clone https://github.com/xjaros1/pb071_posix```
+```$ git clone https://github.com/mijaros/pb071_posix```
 
 Tento příkaz vám stáhne pracovní kopii repozitáře do složky pb071_posix, která vznikne ve složce, ve které se nacházíte.
 Následně již můžete modifikovat main.c případně číst tento soubor ve vašem oblíbeném editoru.
